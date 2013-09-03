@@ -1,5 +1,5 @@
 # CigaretteCounter
-A simple (and quickly hacked together) mobile web "app" I've made for myself to track how much I smoke each day. It stores it's data in `localStorage` and the data gets reset every day.
+A simple (and quickly hacked together) mobile web "app" I've made for myself to track how much I smoke each day. It stores it's data in `localStorage` and the data gets reset every day. Note that it has only been tested on desktop Chrome and on Dolphin on Android.
 
 ## How to use
 Just copy `index.html` & `app.js` to a web server of your choice and that's it. Or if you want to use it locally, you can clone the repository and execute:
