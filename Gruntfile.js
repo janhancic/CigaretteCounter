@@ -24,4 +24,16 @@ module.exports = function( grunt ) {
 
 	// Default task(s).
 	grunt.registerTask( 'default', ['http-server'] );
+
+	grunt.registerTask( 'make', [ 'uglify', 'make-html'] );
+
+	grunt.registerTask( 'make-html', 'Prepeares a "production" index.html file', function () {
+		var devFile = grunt.file.read( 'index.dev.html' );
+		var appJsFile = grunt.file.read( 'app.min.js' );
+		var jsReplace = '<script type="text/javascript">' + appJsFile + '</script>';
+		var productionFile = devFile.replace( '<script type="text/javascript" src="app.js"></script>', jsReplace );
+
+		grunt.file.write( 'index.html', productionFile);
+	} );
+
 };
