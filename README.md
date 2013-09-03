@@ -23,3 +23,6 @@ I'll probably add some support to store historic data, but for now this is all I
 
 ## License
 Licensed under MIT. See `LICENSE.md` file for details.
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/janhancic/cigarettecounter/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
