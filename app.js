@@ -13,7 +13,7 @@ window.app = (function ( localStorage ) {
 
 	function handleClick () {
 		num = num + 1;
-		localStorage.setItem( 'num', num );
+		saveToStorage( num );
 
 		numberEl.innerHTML = num;
 	};
@@ -24,26 +24,27 @@ window.app = (function ( localStorage ) {
 
 		if ( num == null ) {
 			num = 0;
-			localStorage.setItem( 'num', 0 );
 		} else {
 			num = Number( num );
 		}
 
 		if ( date == null ) {
 			date = getCurrentDate();
-			localStorage.setItem( 'date', date );
 		}
 
 		if ( date !== getCurrentDate() ) {
-			// reset data
-			localStorage.setItem( 'num', 0 );
-			localStorage.setItem( 'date', getCurrentDate() );
-
 			num = 0;
 			date = getCurrentDate();
 		}
 
 		numberEl.innerHTML = num;
+
+		saveToStorage(num, date);
+	};
+
+	function saveToStorage ( num, date ) {
+		localStorage.setItem( 'num', num );
+		date && localStorage.setItem( 'date', date );
 	};
 
 	function getCurrentDate () {
