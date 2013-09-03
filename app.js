@@ -16,6 +16,8 @@ window.app = (function ( localStorage ) {
 		saveToStorage( num );
 
 		numberEl.innerHTML = num;
+
+		return false;
 	};
 
 	function loadNumber () {
