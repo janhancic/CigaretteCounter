@@ -1,0 +1,11 @@
+{
+  "name": "CigaretteCounter",
+  "version": "0.0.1",
+  "description": "My personal cigarette counter",
+  "author": "Jan Hancic",
+  "license": "MIT",
+  "devDependencies": {
+    "grunt": "~0.4.1",
+    "grunt-http-server": "0.0.2"
+  }
+}
