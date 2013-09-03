@@ -1,6 +1,12 @@
 module.exports = function( grunt ) {
 	grunt.initConfig( {
 		pkg: grunt.file.readJSON( 'package.json' ),
+		uglify: {
+			build: {
+				src: 'app.js',
+				dest: 'app.min.js'
+			}
+		},
 		'http-server': {
 			'dev': {
 				root: '.',
@@ -13,6 +19,7 @@ module.exports = function( grunt ) {
 		}
 	} );
 
+	grunt.loadNpmTasks('grunt-contrib-uglify' );
 	grunt.loadNpmTasks('grunt-http-server');
 
 	// Default task(s).
