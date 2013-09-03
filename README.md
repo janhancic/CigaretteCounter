@@ -9,9 +9,9 @@ npm install
 grunt
 ```
 
-This will pull in the [grunt-http-server](https://github.com/gruntjs/grunt-contrib-connect) dependency and start a local static server, which you can access on `localhost:8080/index.dev.html`.
+This will install dependencies and start a local static server, which you can access on `localhost:8080/index.dev.html`.
 
-If you make any changes, run `grunt make` which will provide you with a "production" version of the `index.dev.html` file with `app.js` minified and in-lined.
+If you make any changes, run `grunt make` which will provide you with a "production" version of the `index.dev.html` file (`index.html`) with `app.js` minified and in-lined.
 
 
 ## Plans
