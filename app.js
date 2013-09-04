@@ -1,7 +1,8 @@
 window.app = (function ( localStorage ) {
 	var app = {},
 		numberEl = null,
-		num = 0;
+		num = 0,
+		currentLoadingNum = 0;
 
 	app.start = function ( numberContainerId ) {
 		numberEl = document.getElementById( numberContainerId );
@@ -39,9 +40,21 @@ window.app = (function ( localStorage ) {
 			date = getCurrentDate();
 		}
 
-		numberEl.innerHTML = num;
-
+		numberEl.innerHTML = '0';
 		saveToStorage(num, date);
+
+		if ( num > 1 ) {
+			setTimeout( doCountUp, 150 );
+		}
+	};
+
+	function doCountUp () {
+		currentLoadingNum = currentLoadingNum + 1;
+		numberEl.innerHTML = currentLoadingNum;
+
+		if ( currentLoadingNum < num ) {
+			setTimeout( doCountUp, 150 + 2 * currentLoadingNum );
+		}
 	};
 
 	function saveToStorage ( num, date ) {
