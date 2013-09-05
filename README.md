@@ -2,9 +2,15 @@
 A simple (and quickly hacked together) mobile web "app" I've made for myself to track how much I smoke each day. It stores it's data in `localStorage` and the data gets reset every day. Note that it has only been tested on desktop Chrome and on Dolphin on Android.
 
 ## How to use
-Just copy `index.html` to a web server of your choice and that's it. Or, if you are feeling lazy, just bookmark [janhancic.github.io/CigaretteCounter](http://janhancic.github.io/CigaretteCounter/) in your mobile browser and enjoy.
 
-You can also run it locally:
+### Easy mode
+Copy `index.html` to a web server of your choice and that's it. If you want offline support also copy the `cc.appcache` file into the same folder. Make sure your web server will serve `*.appcache` files with the content type header of `text/cache-manifest`.
+
+### Lazy mode
+Bookmark [janhancic.github.io/CigaretteCounter](http://janhancic.github.io/CigaretteCounter/) in your mobile browser and enjoy.
+
+### Advanced mode
+Run it locally:
 
 ```
 git clone https://github.com/janhancic/CigaretteCounter.git
@@ -25,4 +31,3 @@ I'll probably add some support to store historic data, but for now this is all I
 Licensed under MIT. See `LICENSE.md` file for details.
 
 [![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/janhancic/cigarettecounter/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
-
