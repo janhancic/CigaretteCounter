@@ -32,6 +32,8 @@ module.exports = function( grunt ) {
 		var appJsFile = grunt.file.read( 'app.min.js' );
 		var jsReplace = '<script type="text/javascript">' + appJsFile + '</script>';
 		var productionFile = devFile.replace( '<script type="text/javascript" src="app.js"></script>', jsReplace );
+		var htmlReplace = '<html manifest="cc.appcache">';
+		var productionFile = devFile.replace( '<html>', htmlReplace );
 
 		grunt.file.write( 'index.html', productionFile);
 	} );
