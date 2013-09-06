@@ -25,7 +25,7 @@ module.exports = function( grunt ) {
 	// Default task(s).
 	grunt.registerTask( 'default', ['http-server'] );
 
-	grunt.registerTask( 'make', [ 'uglify', 'make-html'] );
+	grunt.registerTask( 'make', [ 'uglify', 'make-html', 'update-appcache'] );
 
 	grunt.registerTask( 'make-html', 'Prepeares a "production" index.html file', function () {
 		var devFileContent = grunt.file.read( 'index.dev.html' );
@@ -43,6 +43,15 @@ module.exports = function( grunt ) {
 		);
 
 		grunt.file.write( 'index.html', productionFile);
+	} );
+
+	grunt.registerTask( 'update-appcache', 'Updates the revision comment in appcache file', function () {
+		var appCacheFileContent = grunt.file.read( 'cc.appcache' );
+		var currentRevision = appCacheFileContent.match( /# revision ([0-9]*)/ )[1] * 1;
+
+		appCacheFileContent = appCacheFileContent.replace( /# revision ([0-9]*)/, '# revision ' + (currentRevision + 1) );
+
+		grunt.file.write( 'cc.appcache', appCacheFileContent );
 	} );
 
 };
