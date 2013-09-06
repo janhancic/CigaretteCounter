@@ -1,8 +1,15 @@
 window.app = (function ( localStorage ) {
+	/*
+	This is basically an experiment on how far I can get without needing any frameworks.
+	That is why the code is so unstructured ATM.
+	*/
+
 	var app = {},
 		numberEl = null,
 		num = 0,
-		currentLoadingNum = 0;
+		currentLoadingNum = 0,
+		undoEl,
+		undoTimer;
 
 	app.start = function ( numberContainerId ) {
 		numberEl = document.getElementById( numberContainerId );
@@ -18,8 +25,46 @@ window.app = (function ( localStorage ) {
 
 		numberEl.innerHTML = num;
 
+		clearUndo();
+
+		createUndo();
+
 		return false;
 	};
+
+	function createUndo () {
+		undoEl = document.createElement( 'div' );
+		undoEl.setAttribute( 'id', 'Undo' );
+		undoEl.innerHTML = 'undo';
+
+		document.body.appendChild( undoEl );
+
+		undoEl.addEventListener( 'click', handleUndo );
+
+		undoTimer = setTimeout(
+			clearUndo,
+			1000 * 3
+		);
+	};
+
+	function handleUndo () {
+		num = num - 1;
+		saveToStorage( num );
+
+		numberEl.innerHTML = num;
+
+		clearUndo();
+
+		return false;
+	};
+
+	function clearUndo () {
+		undoTimer && clearTimeout( undoTimer );
+		undoTimer = null;
+
+		undoEl && document.body.removeChild( undoEl );
+		undoEl = null;
+	}
 
 	function loadNumber () {
 		num = localStorage.getItem( 'num' ),
