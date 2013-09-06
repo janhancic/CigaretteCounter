@@ -28,12 +28,19 @@ module.exports = function( grunt ) {
 	grunt.registerTask( 'make', [ 'uglify', 'make-html'] );
 
 	grunt.registerTask( 'make-html', 'Prepeares a "production" index.html file', function () {
-		var devFile = grunt.file.read( 'index.dev.html' );
-		var appJsFile = grunt.file.read( 'app.min.js' );
-		var jsReplace = '<script type="text/javascript">' + appJsFile + '</script>';
-		var productionFile = devFile.replace( '<script type="text/javascript" src="app.js"></script>', jsReplace );
-		var htmlReplace = '<html manifest="cc.appcache">';
-		var productionFile = productionFile.replace( '<html>', htmlReplace );
+		var devFileContent = grunt.file.read( 'index.dev.html' );
+		var appJsFileContent = grunt.file.read( 'app.min.js' );
+		var productionFile = devFileContent;
+
+		productionFile = productionFile.replace(
+			'<script type="text/javascript" src="app.js"></script>',
+			'<script type="text/javascript">' + appJsFileContent + '</script>'
+		);
+
+		productionFile = productionFile.replace(
+			'<html>',
+			'<html manifest="cc.appcache">'
+		);
 
 		grunt.file.write( 'index.html', productionFile);
 	} );
