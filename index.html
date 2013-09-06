@@ -1,31 +1,46 @@
 <!DOCTYPE html>
 <html manifest="cc.appcache">
-  <head>
-    <meta charset="utf-8">
-    <title>CigaretteCounter</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script type="text/javascript">window.app=function(a){function b(){return i+=1,e(i),h.innerHTML=i,!1}function c(){i=a.getItem("num"),date=a.getItem("date"),i=null==i?0:Number(i),null==date&&(date=f()),date!==f()&&(i=0,date=f()),h.innerHTML="0",e(i,date),i>1&&setTimeout(d,150)}function d(){j+=1,h.innerHTML=j,i>j&&setTimeout(d,150+2*j)}function e(b,c){a.setItem("num",b),c&&a.setItem("date",c)}function f(){var a=new Date;return""+a.getFullYear()+a.getMonth()+a.getDay()}var g={},h=null,i=0,j=0;return g.start=function(a){h=document.getElementById(a),c(),h.addEventListener("click",b)},g}(window.localStorage);</script>
-    <style type="text/css">
-    html, head, #NumberContainer {
-      height: 100%;
-      margin: 0;
-      padding: 0;
-      font-family: Helvetica;
-    }
+	<head>
+		<meta charset="utf-8">
+		<title>CigaretteCounter</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<script type="text/javascript">window.app=function(a){function b(){return n+=1,h(n),m.innerHTML=n,e(),c(),!1}function c(){j=document.createElement("div"),j.setAttribute("id","Undo"),j.innerHTML="undo",document.body.appendChild(j),j.addEventListener("click",d),k=setTimeout(e,3e3)}function d(){return n-=1,h(n),m.innerHTML=n,e(),!1}function e(){k&&clearTimeout(k),k=null,j&&document.body.removeChild(j),j=null}function f(){n=a.getItem("num"),date=a.getItem("date"),n=null==n?0:Number(n),null==date&&(date=i()),date!==i()&&(n=0,date=i()),m.innerHTML="0",h(n,date),n>1&&setTimeout(g,150)}function g(){o+=1,m.innerHTML=o,n>o&&setTimeout(g,150+2*o)}function h(b,c){a.setItem("num",b),c&&a.setItem("date",c)}function i(){var a=new Date;return""+a.getFullYear()+a.getMonth()+a.getDay()}var j,k,l={},m=null,n=0,o=0;return l.start=function(a){m=document.getElementById(a),f(),m.addEventListener("click",b)},l}(window.localStorage);</script>
+		<style type="text/css">
+		html, head, #NumberContainer {
+			height: 100%;
+			margin: 0;
+			padding: 0;
+			font-family: Helvetica;
+		}
 
-    #NumberContainer {
-      text-align: center;
-      font-size: 200px;
-      color: #0088cc;
-      -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-    }
-    </style>
-  </head>
-  <body>
-    <div id="NumberContainer">0</div>
+		#NumberContainer {
+			text-align: center;
+			font-size: 200px;
+			color: #0088cc;
+			-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+		}
 
-    <script type="text/javascript">
-    app.start( 'NumberContainer' );
-    </script>
-  </body>
+		#Undo {
+			position: fixed;
+			top: 10px;
+			left: 50%;
+			width: 200px;
+			margin-left: -105px;
+			padding: 5px;
+			border-radius: 10px;
+			background-color: black;
+			opacity: 0.65;
+			font-size: 40px;
+			color: white;
+			text-align: center;
+		}
+		</style>
+	</head>
+	<body>
+		<div id="NumberContainer">0</div>
+
+		<script type="text/javascript">
+		app.start( 'NumberContainer' );
+		</script>
+	</body>
 </html>
