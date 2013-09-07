@@ -6,13 +6,15 @@ window.app = (function ( localStorage ) {
 
 	var app = {},
 		numberEl = null,
+		messageEl = null,
 		num = 0,
 		currentLoadingNum = 0,
 		undoEl,
 		undoTimer;
 
-	app.start = function ( numberContainerId ) {
+	app.start = function ( numberContainerId, messageContainerId ) {
 		numberEl = document.getElementById( numberContainerId );
+		messageEl = document.getElementById( messageContainerId );
 
 		loadNumber();
 
@@ -24,9 +26,9 @@ window.app = (function ( localStorage ) {
 		saveToStorage( num );
 
 		numberEl.innerHTML = num;
+		updateMessage ( num )
 
 		clearUndo();
-
 		createUndo();
 
 		return false;
@@ -52,6 +54,7 @@ window.app = (function ( localStorage ) {
 		saveToStorage( num );
 
 		numberEl.innerHTML = num;
+		updateMessage( num );
 
 		clearUndo();
 
@@ -87,15 +90,40 @@ window.app = (function ( localStorage ) {
 
 		numberEl.innerHTML = '0';
 		saveToStorage(num, date);
+		updateMessage( num );
 
-		if ( num > 1 ) {
+		if ( num >= 1 ) {
 			setTimeout( doCountUp, 150 );
+		}
+	};
+
+	function updateMessage ( numToUse ) {
+		var messages = [
+			'Horay!', // 0
+			'So far so good!', // 1
+			'Not to shabby!', // 2
+			'It better after 12PM now!', // 3
+			'It\'s after lunch, so OK!', // 4
+			'Start slowing down!', // 5
+			'*khm*', // 6
+			'You could stop now, you know?', // 7
+			'Seriously, time to stop for today.', // 8
+			'Hope this is the last one!', // 9
+			'Right ... ', // 10
+			'You are hopeless!' // 11
+		];
+
+		if ( numToUse < messages.length ) {
+			messageEl.innerHTML = messages[numToUse];
+		} else {
+			messageEl.innerHTML = messages[messages.length - 1];
 		}
 	};
 
 	function doCountUp () {
 		currentLoadingNum = currentLoadingNum + 1;
 		numberEl.innerHTML = currentLoadingNum;
+		updateMessage( currentLoadingNum );
 
 		if ( currentLoadingNum < num ) {
 			setTimeout( doCountUp, 150 + 2 * currentLoadingNum );

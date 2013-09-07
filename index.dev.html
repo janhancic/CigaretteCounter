@@ -34,13 +34,19 @@
 			color: white;
 			text-align: center;
 		}
+
+		#Message {
+			text-align: center;
+			font-weight: bold;
+		}
 		</style>
 	</head>
 	<body>
 		<div id="NumberContainer">0</div>
+		<div id="Message"></div>
 
 		<script type="text/javascript">
-		app.start( 'NumberContainer' );
+		app.start( 'NumberContainer', 'Message' );
 		</script>
 	</body>
 </html>
