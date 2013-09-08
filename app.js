@@ -102,14 +102,14 @@ window.app = (function ( localStorage ) {
 			'Horay!', // 0
 			'So far so good!', // 1
 			'Not to shabby!', // 2
-			'It better after 12PM now!', // 3
-			'It\'s after lunch, so OK!', // 4
-			'Start slowing down!', // 5
-			'*khm*', // 6
-			'You could stop now, you know?', // 7
-			'Seriously, time to stop for today.', // 8
-			'Hope this is the last one!', // 9
-			'Right ... ', // 10
+			'Did you really need this one?', // 3
+			'It better be after 12PM now!', // 4
+			'It\'s after lunch, so OK!', // 5
+			'Start slowing down!', // 6
+			'*khm*', // 7
+			'You could stop now, you know?', // 8
+			'Seriously, time to stop for today.', // 9
+			'Hope this is the last one!', // 10
 			'You are hopeless!' // 11
 		];
 
