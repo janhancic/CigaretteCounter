@@ -38,15 +38,22 @@
 		#Message {
 			text-align: center;
 			font-weight: bold;
+			font-style: italic;
+		}
+
+		#TimeSinceLast {
+			text-align: center;
+			font-weight: bold;
 		}
 		</style>
 	</head>
 	<body>
+		<div id="TimeSinceLast">aaaa</div>
 		<div id="NumberContainer">0</div>
 		<div id="Message"></div>
 
 		<script type="text/javascript">
-		app.start( 'NumberContainer', 'Message' );
+		app.start( 'NumberContainer', 'Message', 'TimeSinceLast' );
 		</script>
 	</body>
 </html>

@@ -2,31 +2,35 @@ window.app = (function ( localStorage ) {
 	/*
 	This is basically an experiment on how far I can get without needing any frameworks.
 	That is why the code is so unstructured ATM.
+	Oh boy, this code is ripe for a serious cleanup.
 	*/
 
 	var app = {},
 		numberEl = null,
 		messageEl = null,
+		timeSinceLastEl = null,
 		num = 0,
 		currentLoadingNum = 0,
 		undoEl,
 		undoTimer;
 
-	app.start = function ( numberContainerId, messageContainerId ) {
+	app.start = function ( numberContainerId, messageContainerId, timeSinceLastContainerId ) {
 		numberEl = document.getElementById( numberContainerId );
 		messageEl = document.getElementById( messageContainerId );
+		timeSinceLastEl = document.getElementById( timeSinceLastContainerId );
 
-		loadNumber();
+		loadData();
 
 		numberEl.addEventListener( 'click', handleClick );
 	};
 
 	function handleClick () {
 		num = num + 1;
-		saveToStorage( num );
+		saveToStorage( num, null, (new Date()).getTime() );
 
 		numberEl.innerHTML = num;
 		updateMessage ( num )
+		updateTime( (new Date()).getTime(), num );
 
 		clearUndo();
 		createUndo();
@@ -69,9 +73,11 @@ window.app = (function ( localStorage ) {
 		undoEl = null;
 	}
 
-	function loadNumber () {
-		num = localStorage.getItem( 'num' ),
-			date = localStorage.getItem( 'date' );
+	function loadData () {
+		var date = localStorage.getItem( 'date' ),
+			time = localStorage.getItem( 'time' );
+
+		num = localStorage.getItem( 'num' );
 
 		if ( num == null ) {
 			num = 0;
@@ -83,17 +89,46 @@ window.app = (function ( localStorage ) {
 			date = getCurrentDate();
 		}
 
+		if ( time == null ) {
+			time = (new Date()).getTime();
+		}
+
 		if ( date !== getCurrentDate() ) {
 			num = 0;
 			date = getCurrentDate();
 		}
 
 		numberEl.innerHTML = '0';
-		saveToStorage(num, date);
+		saveToStorage(num, date, time);
 		updateMessage( num );
+		updateTime( time, num );
 
 		if ( num >= 1 ) {
 			setTimeout( doCountUp, 150 );
+		}
+	};
+
+	function updateTime ( time, num ) {
+		if ( num === 0 ) {
+			timeSinceLastEl.innerHTML = '';
+			return;
+		}
+
+		var timeDifference = Math.floor( ( (new Date()).getTime() - time ) );
+
+		if ( timeDifference < 60 * 1000 ) {
+			timeSinceLastEl.innerHTML = 'just now';
+		} else if ( timeDifference < 60 * 10 * 1000 ) {
+			timeSinceLastEl.innerHTML = 'less than 10 minutes ago';
+		} else if ( timeDifference < 60 * 30 * 1000 ) {
+			timeSinceLastEl.innerHTML = 'less than half an hour ago';
+		} else if ( timeDifference < 60 * 45 * 1000 ) {
+			timeSinceLastEl.innerHTML = 'less than 45 minutes ago';
+		} else if ( timeDifference <= 60 * 60 * 1000 ) {
+			timeSinceLastEl.innerHTML = 'less than an hour ago';
+		} else {
+			var minutes = Math.floor( timeDifference  / (60 * 1000) );
+			timeSinceLastEl.innerHTML = minutes + ' minutes ago';
 		}
 	};
 
@@ -130,9 +165,10 @@ window.app = (function ( localStorage ) {
 		}
 	};
 
-	function saveToStorage ( num, date ) {
+	function saveToStorage ( num, date, time ) {
 		localStorage.setItem( 'num', num );
 		date && localStorage.setItem( 'date', date );
+		time && localStorage.setItem( 'time', time );
 	};
 
 	function getCurrentDate () {
