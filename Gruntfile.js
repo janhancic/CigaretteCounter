@@ -3,7 +3,7 @@ module.exports = function( grunt ) {
 		pkg: grunt.file.readJSON( 'package.json' ),
 		uglify: {
 			build: {
-				src: 'src/app.js',
+				src: [ 'src/config.js', 'src/app.js' ],
 				dest: 'build/app.min.js'
 			}
 		},
@@ -25,7 +25,7 @@ module.exports = function( grunt ) {
 	// Default task(s).
 	grunt.registerTask( 'default', ['http-server'] );
 
-	grunt.registerTask( 'make', [ 'uglify', 'make-html', 'update-appcache'] );
+	grunt.registerTask( 'make', [ 'uglify', 'make-html' ] );
 
 	grunt.registerTask( 'make-html', 'Prepeares a "production" index.html file', function () {
 		var devFileContent = grunt.file.read( 'src/index.html' );
@@ -37,21 +37,14 @@ module.exports = function( grunt ) {
 			'<script type="text/javascript">' + appJsFileContent + '</script>'
 		);
 
-		productionFile = productionFile.replace(
-			'<html>',
-			'<html manifest="cc.appcache">'
-		);
+		productionFile = productionFile.replace( '<script type="text/javascript" src="config.js"></script>', '' );
 
 		grunt.file.write( 'build/index.html', productionFile);
-	} );
 
-	grunt.registerTask( 'update-appcache', 'Updates the revision comment in appcache file', function () {
-		var appCacheFileContent = grunt.file.read( 'build/cc.appcache' );
-		var currentRevision = appCacheFileContent.match( /# revision ([0-9]*)/ )[1] * 1;
-
-		appCacheFileContent = appCacheFileContent.replace( /# revision ([0-9]*)/, '# revision ' + (currentRevision + 1) );
-
-		grunt.file.write( 'build/cc.appcache', appCacheFileContent );
+		// copy PHP and config files
+		grunt.file.copy( 'src/reportr.php', 'build/reportr.php' );
+		grunt.file.copy( 'src/reportr.config.php', 'build/reportr.config.php' );
+		grunt.file.copy( 'src/config.js', 'build/config.js' );
 	} );
 
 };

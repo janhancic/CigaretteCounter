@@ -5,7 +5,7 @@ window.app = (function ( localStorage ) {
 	Oh boy, this code is ripe for a serious cleanup.
 	*/
 
-	var app = {},
+	var app = window.app || {},
 		numberEl = null,
 		messageEl = null,
 		timeSinceLastEl = null,
@@ -34,6 +34,12 @@ window.app = (function ( localStorage ) {
 
 		clearUndo();
 		createUndo();
+
+		if (app.useReportr != null && app.useReportr === true) {
+			var xhr = new XMLHttpRequest();
+			xhr.open( 'GET', 'reportr.php', true );
+			xhr.send();
+		}
 
 		return false;
 	};
