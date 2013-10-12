@@ -43,8 +43,14 @@ module.exports = function( grunt ) {
 
 		// copy PHP and config files
 		grunt.file.copy( 'src/reportr.php', 'build/reportr.php' );
-		grunt.file.copy( 'src/reportr.config.php', 'build/reportr.config.php' );
-		grunt.file.copy( 'src/config.js', 'build/config.js' );
+
+		if ( grunt.file.exists( 'src/reportr.config.php' ) === true ) {
+			grunt.file.copy( 'src/reportr.config.php', 'build/reportr.config.php' );
+		}
+
+		if ( grunt.file.exists( 'src/config.js' ) === true ) {
+			grunt.file.copy( 'src/config.js', 'build/config.js' );
+		}
 	} );
 
 };
